@@ -2,11 +2,14 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
+xss_li = ["document.cookie", "<script", "</script>", "<img","window.open"]
+
 def check_url(url):
-    if "document.cookie" in url:
-        return "Smishing URL"
-    else:
-        return "%s is ok"%url
+    for i in xss_li:
+        if i in url:
+            return "Smishing URL"
+            
+    return "%s is ok"%url
 
 @app.route("/",methods=["GET"])
 def url_Result():
@@ -16,4 +19,3 @@ def url_Result():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=80)
-
