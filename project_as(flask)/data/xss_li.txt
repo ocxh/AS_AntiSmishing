@@ -1,0 +1,5 @@
+document.cookie
+<script
+</script>
+<img
+window.open
